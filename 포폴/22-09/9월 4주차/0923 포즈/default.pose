@@ -1,0 +1,123 @@
+root ground: 0 0 0 0 0 0 1 1 1
+root hips: 33 -4 8 0 -0.36 0 1 1 1
+spine lower: 3 -15 23 0 0 0 1 1 1
+spine middle: 26 23 -6 0 0 0 1 1 1
+spine upper: 9 34 -9 0 0 0 1 1 1
+arm right shoulder 1: -56 49 -53 0 0 0 1 1 1
+arm right shoulder armor: 0 0 0 0 0 0 1 1 1
+arm right shoulder 2: -16 17 85 0 0 0 1 1 1
+arm right shoulder adj 1: 0 0 0 0 0 0 1 1 1
+arm right shoulder adj 2: 0 0 0 0 0 0 1 1 1
+arm right elbow: -97 70 -48 0 0 0 1 1 1
+arm right wrist: -2 -56 14 0 0 0 1 1 1
+arm right finger 3a: 14 -6 97 0 0 0 1 1 1
+arm right finger 3b: 2 1 50 0 0 0 1 1 1
+arm right finger 3c: 0 0 86 0 0 0 1 1 1
+arm right finger 2a: 20 21 93 0 0 0 1 1 1
+arm right finger 2b: -11 11 66 0 0 0 1 1 1
+arm right finger 2c: -17 -6 27 0 0 0 1 1 1
+arm right finger 4a: 6 -12 90 0 0 0 1 1 1
+arm right finger 4b: 0 0 58 0 0 0 1 1 1
+arm right finger 4c: 0 0 71 0 0 0 1 1 1
+arm right finger 5a: -1 -20 86 0 0 0 1 1 1
+arm right finger 5b: 0 -18 78 0 0 0 1 1 1
+arm right finger 5c: 0 0 47 0 0 0 1 1 1
+arm right finger 1a: 24 -9 18 0 0 0 1 1 1
+arm right finger 1b: 2 -61 4 0 0 0 1 1 1
+arm right finger 1c: 8 -33 -32 0 0 0 1 1 1
+arm right wrist weapon: 0 0 0 0 0 0 1 1 1
+cape collar right: -1 0 6 0 0 0 1 1 1
+arm left shoulder 1: -24 -28 9 0 0 0 1 1 1
+arm left shoulder armor: 0 0 0 0 0 0 1 1 1
+arm left shoulder 2: 3 -19 -50 0 0 0 1 1 1
+arm left shoulder adj 1: 0 0 0 0 0 0 1 1 1
+arm left shoulder adj 2: 0 0 0 0 0 0 1 1 1
+arm left elbow: 22 -94 -2 0 0 0 1 1 1
+arm left wrist: -13 -33 20 0 0 0 1 1 1
+arm left finger 3a: 14 6 -97 0 0 0 1 1 1
+arm left finger 3b: 2 -1 -50 0 0 0 1 1 1
+arm left finger 3c: 0 0 -86 0 0 0 1 1 1
+arm left finger 2a: 20 -21 -93 0 0 0 1 1 1
+arm left finger 2b: -11 -11 -66 0 0 0 1 1 1
+arm left finger 2c: -17 6 -27 0 0 0 1 1 1
+arm left finger 4a: 6 12 -90 0 0 0 1 1 1
+arm left finger 4b: 0 0 -58 0 0 0 1 1 1
+arm left finger 4c: 0 0 -71 0 0 0 1 1 1
+arm left finger 5a: -1 20 -86 0 0 0 1 1 1
+arm left finger 5b: 0 18 -78 0 0 0 1 1 1
+arm left finger 5c: 0 0 -47 0 0 0 1 1 1
+arm left finger 1a: 24 9 -18 0 0 0 1 1 1
+arm left finger 1b: 2 61 -4 0 0 0 1 1 1
+arm left finger 1c: 8 33 32 0 0 0 1 1 1
+arm left wrist weapon: 0 0 0 0 0 0 1 1 1
+cape collar left: -1 0 6 0 0 0 1 1 1
+head neck lower: -12 -40 22 0 0 0 1 1 1
+head neck upper: -17 -24 1 0 0 0 1 1 1
+head jaw: 0 0 0 0 0 0 1 1 1
+head tongue 2: 0 0 0 0 0 0 1 1 1
+head tongue 1: 0 0 0 0 0 0 1 1 1
+cape base: -1 0 6 0 0 0 1 1 1
+cape right 1 00: -1 0 6 0 0 0 1 1 1
+cape right 1 01: -1 0 6 0 0 0 1 1 1
+cape right 1 02: -1 0 6 0 0 0 1 1 1
+cape right 1 03: -1 0 6 0 0 0 1 1 1
+cape right 1 04: -1 0 6 0 0 0 1 1 1
+cape right 1 05: -1 0 6 0 0 0 1 1 1
+cape right 1 06: -1 0 6 0 0 0 1 1 1
+cape right 1 07: -1 0 6 0 0 0 1 1 1
+cape right 1 08: -1 0 6 0 0 0 1 1 1
+cape right 1 09: -1 0 6 0 0 0 1 1 1
+cape right 1 10: -1 0 6 0 0 0 1 1 1
+cape left 2 00: -1 0 6 0 0 0 1 1 1
+cape left 2 01: -1 0 6 0 0 0 1 1 1
+cape left 2 02: -1 0 6 0 0 0 1 1 1
+cape left 2 03: -1 0 6 0 0 0 1 1 1
+cape left 2 04: -1 0 6 0 0 0 1 1 1
+cape left 2 05: -1 0 6 0 0 0 1 1 1
+cape left 2 06: -1 0 6 0 0 0 1 1 1
+cape left 2 07: -1 0 6 0 0 0 1 1 1
+cape left 2 08: -1 0 6 0 0 0 1 1 1
+cape left 2 09: -1 0 6 0 0 0 1 1 1
+cape left 2 10: -1 0 6 0 0 0 1 1 1
+cape right 2 00: -1 0 6 0 0 0 1 1 1
+cape right 2 01: -1 0 6 0 0 0 1 1 1
+cape right 2 02: -1 0 6 0 0 0 1 1 1
+cape right 2 03: -1 0 6 0 0 0 1 1 1
+cape right 2 04: -1 0 6 0 0 0 1 1 1
+cape right 2 05: -1 0 6 0 0 0 1 1 1
+cape right 2 06: -1 0 6 0 0 0 1 1 1
+cape right 2 07: -1 0 6 0 0 0 1 1 1
+cape right 2 08: -1 0 6 0 0 0 1 1 1
+cape right 2 09: -1 0 6 0 0 0 1 1 1
+cape right 2 10: -1 0 6 0 0 0 1 1 1
+cape middle 00: -1 0 6 0 0 0 1 1 1
+cape middle 01: -1 0 6 0 0 0 1 1 1
+cape middle 02: -1 0 6 0 0 0 1 1 1
+cape middle 03: -1 0 6 0 0 0 1 1 1
+cape middle 04: -1 0 6 0 0 0 1 1 1
+cape middle 05: -1 0 6 0 0 0 1 1 1
+cape middle 06: -1 0 6 0 0 0 1 1 1
+cape middle 07: -1 0 6 0 0 0 1 1 1
+cape middle 08: -1 0 6 0 0 0 1 1 1
+cape middle 09: -1 0 6 0 0 0 1 1 1
+cape middle 10: -1 0 6 0 0 0 1 1 1
+cape left 1 00: -1 0 6 0 0 0 1 1 1
+cape left 1 01: -1 0 6 0 0 0 1 1 1
+cape left 1 02: -1 0 6 0 0 0 1 1 1
+cape left 1 03: -1 0 6 0 0 0 1 1 1
+cape left 1 04: -1 0 6 0 0 0 1 1 1
+cape left 1 05: -1 0 6 0 0 0 1 1 1
+cape left 1 06: -1 0 6 0 0 0 1 1 1
+cape left 1 07: -1 0 6 0 0 0 1 1 1
+cape left 1 08: -1 0 6 0 0 0 1 1 1
+cape left 1 09: -1 0 6 0 0 0 1 1 1
+cape left 1 10: -1 0 6 0 0 0 1 1 1
+spine upper weapon: 0 0 0 0 0 0 1 1 1
+leg left thigh: -21 21 20 0 0.037 0 1 1 1
+leg left knee: 41 0 0 0 0 0 1 1 1
+leg left ankle: -54 0 -39 0 0 0 1 1 1
+leg left toes: 0 0 0 0 0 0 1 1 1
+leg right thigh: -94 -23 -13 0 0.08000001 0 1 1 1
+leg right knee: 90 0 -11 0 0 0 1 1 1
+leg right ankle: -28 0 23 0 0 0 1 1 1
+leg right toes: 0 0 0 0 0 0 1 1 1

@@ -1,0 +1,36 @@
+newmtl Model001_Material001
+map_Kd Sword.png
+map_bump Sword N.png
+
+newmtl Model001_Material002
+map_Kd Sword.png
+map_bump Sword N.png
+
+newmtl Model001_Material003
+map_Kd Sword.png
+map_bump Sword N.png
+
+newmtl Model001_Material004
+map_Kd 001out.png
+map_bump 002out.png
+
+newmtl Model001_Material005
+map_Kd 007out.png
+map_bump 010out.png
+
+newmtl Model001_Material006
+map_Kd 007out.png
+map_bump 010out.png
+
+newmtl Model001_Material007
+map_Kd 016out.png
+map_bump 014out.png
+
+newmtl Model001_Material008
+map_Kd 012out.png
+map_bump 009out.png
+
+newmtl Model001_Material009
+map_Kd 001out.png
+map_bump 002out.png
+
