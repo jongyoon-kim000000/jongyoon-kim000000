@@ -1,8 +1,12 @@
+/*만든이 :김종윤
+문의: https://blog.naver.com/trueb000/223314441951
+수정, 배포는 자유이며 많은 피드백 부탁드립니다.
+*/
 
 --다이얼로그창이 이미 켜져있다면 닫고 실행한다
 try (destroyDialog constraintManager) catch ()
 
-rollout constraintManager "Constraint Manager" width:250
+rollout constraintManager "lil_Constraint Manager" width:250
 (
     --수정가능한 접두사의 디폴트 문구 설정
     edittext prefixEditText "Prefix:" text:"NewPrefix_" fieldWidth:80
