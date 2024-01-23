@@ -56,9 +56,17 @@ else
 
     --여기서부턴 컨스트레인트입니다.
     --링크컨스트레인트
-	button 'constraintBtn' "link " pos:[27,205] width:76 height:24 align:#left
---컨스트레인 버튼 기능정의
-    on constraintBtn pressed do
+	button 'constraintLC' "link " pos:[27,205] width:76 height:24 align:#left
+            button 'resetLC' "reset" pos:[117,204] width:76 height:24 align:#left
+	button 'constraintPos' "position" pos:[27,239] width:76 height:24 align:#left
+	button 'resetPos' "reset" pos:[118,239] width:76 height:24 align:#left
+	button 'btn6' "orientaition" pos:[26,299] width:76 height:24 align:#left
+	button 'btn7' "reset" pos:[116,300] width:76 height:24 align:#left
+	checkbox 'chk1' "keep initial offset" pos:[55,273] width:121 height:19 align:#left
+	checkbox 'chk2' "keep initial offset" pos:[52,330] width:121 height:19 align:#left
+	groupBox 'const' "Set Constraint" pos:[13,178] width:194 height:181 align:#left
+--링크컨스트레인 버튼 기능정의
+    on constraintLC pressed do
     (-- 선택된 객체를 배열로 가져오기
 selectedObjects = selection as array
 
@@ -117,9 +125,9 @@ for refObj in refObjects do
 	
   )
  )
- button 'resetLC' "reset" pos:[117,204] width:76 height:24 align:#left
--- 현재 선택된 객체들 중에서 컨트롤러를 변경하고자 하는 오브젝트만 골라내기
-on resetBtn pressed do
+
+-- 리셋버튼
+on resetLC pressed do
 (
     -- 선택된 객체와 임시 트랜스폼을 저장할 전역 변수 정의
     global selectedObjects
@@ -147,9 +155,8 @@ on resetBtn pressed do
         obj.transform = setTransform
      )
  )
-button 'constraintBtn' "position" pos:[27,239] width:76 height:24 align:#left
---컨스트레인 버튼 기능정의
-    on constraintBtn pressed do
+--포지션 컨트롤러 
+    on constraintPos pressed do
     (
 -- 선택한 모든 객체 배열에 저장
 selectedObjects = selection as array
@@ -206,27 +213,40 @@ for refObj in refObjects do
             -- 기존 포지션 컨트롤러 대체
             refObj.position.controller = newPositionConstraint
 
-            -- 오리엔테이션 컨트롤러 가져오기
-                    orientController = refObj.rotation.controller
-
-                    -- 새로운 오리엔테이션 컨스트레인트 생성
-                    newOrientationConstraint = Orientation_Constraint()
-                    
-                    -- 타겟으로 사용할 ORIGIN 오브젝트를 오리엔테이션 컨스트레인트에 추가
-                    newOrientationConstraint.appendTarget correspondingoriginObj 50.0
-
-                    -- 기존 오리엔테이션 컨트롤러 대체
-                    refObj.rotation.controller = newOrientationConstraint
         )
     )
 )
-)
-	button 'btn5' "reset" pos:[118,239] width:76 height:24 align:#left
-	button 'btn6' "orientaition" pos:[26,299] width:76 height:24 align:#left
-	button 'btn7' "reset" pos:[116,300] width:76 height:24 align:#left
-	checkbox 'chk1' "keep initial offset" pos:[55,273] width:121 height:19 align:#left
-	checkbox 'chk2' "keep initial offset" pos:[52,330] width:121 height:19 align:#left
-	groupBox 'const' "Set Constraint" pos:[13,178] width:194 height:181 align:#left
+) 
 
+  on resetPos pressed do
+    (
+global selectedObjects
+global setTransform 
+
+-- 현재 선택된 객체들 중에서 컨트롤러를 변경하고자 하는 오브젝트만 골라내기
+selectedObjects = for obj in selection where (classof obj != Biped_Object) collect obj
+
+-- 선택된 각 오브젝트에 대해 실행
+for obj in selectedObjects do
+(
+    -- 선택된 오브젝트의 트랜스폼을 SET 변수에 저장
+    setTransform = obj.transform
+
+    -- 오브젝트의 포지션 컨트롤러 가져오기
+    posController = obj.position.controller
+
+    -- 새로운 XYZ 포지션 컨트롤러 생성
+    newPositionController = Position_XYZ()
+
+    -- 기존 포지션 컨트롤러 대체
+    obj.position.controller = newPositionController
+    obj.transform = setTransform
+    
+    -- SET 변수에 저장된 트랜스폼 값을 사용하여 새로운 포인트의 트랜스폼 설정
+    obj.transform = setTransform
+)
+        
+    )
+--끝
 )
 createDialog constraintManager
