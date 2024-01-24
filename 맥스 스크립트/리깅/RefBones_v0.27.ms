@@ -10,7 +10,7 @@ rollout RefBones "Reference Bones Tool v0.27" width:200
 	local IDKEYWORD = "RefBone"		-- Ref Bone 임을 알아보는 유저디파인 정보용 키워드 디파인
 	local IDKEYWORDHANDLE = "RefBoneHandle"		-- Ref Bone 임을 알아보는 유저디파인 정보용 키워드 디파인
 	local IDKEYWORDTARGETHANDLE = "RefBoneTargetHandle"		-- Ref 본 의 타겟에 Ref 본의 핸들 번호를 기록
-	local NAMEPREFIX = "Face"
+	local NAMEPREFIX = "Ref_"
 	
 	button uiBtnProcess "Process" width:70 across:2
 	button uiBtnSelect "Select" width:70
