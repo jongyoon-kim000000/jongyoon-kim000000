@@ -16,9 +16,7 @@ zeropoint.isHidden = true
 -- 더미 생성
 newDummy = Dummy name:"Con_Root" position:[0,0,0]
 -- "Con_Root"의 Y축으로 +10 이동
-newDummy.transform = a.transform
 newDummy.position.y = newDummy.position.y + 10
-newDummy.parent = a
 
 --커스텀파라미터 정의
 con = newDummy
