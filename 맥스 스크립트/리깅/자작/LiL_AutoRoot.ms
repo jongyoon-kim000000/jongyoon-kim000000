@@ -51,9 +51,30 @@ myExposeTransform.isHidden = true
 
 
 --루트본에 expression 추가
+Root.pos.controller = Position_XYZ ()
 Root.pos.controller.X_Position.controller = Float_Expression ()
---s.controller = position_script ()
 Root.pos.controller.Y_Position.controller = Float_Expression ()
+
+/*
+이부분은 테스트중인데 
+체크박스가 FLOAT 속성이기때문에 
+퍼센트로 바꾸고 체크박스에 0.01을 곱해서 사용해야 합니다.
+각 변수에 특정 오브젝트의 특정 파라미터 값을 넣는 방법을 찾고 있습니다.
+FolX = root
+FolY = root
+locaX = root
+locaY = root
+
+Root.pos.controller = Position_XYZ ()
+
+Root.pos.controller = position_script ()
+			Root.pos.controller.AddNode "FX" FolX
+            Root.pos.controller.AddNode "FY" FolY
+			Root.pos.controller.AddNode "lX"locaX
+            Root.pos.controller.AddNode "lY"locaY
+			Root.pos.controller.SetExpression "[ FX*lX, FY*lY, 0 ] "
+			*/
+
 )
 
 -- 함수 정의: 정보 버튼을 눌렀을 때 실행되는 함수
