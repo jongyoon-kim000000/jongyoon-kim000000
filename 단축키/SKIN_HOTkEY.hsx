@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<MaxHotkeyTransformations Locked="false">
+    <Unassign_Hotkey Shortcut="`" Description="Redraw All Views" Id="0-40130"/>
+    <Assign_Hotkey Shortcut="`" Description="Blend Weights (Skin)" Id="647394-BlendWeights`Skin Modifier"/>
+    <Unassign_Hotkey Shortcut="1" Description="Sub-Object Level 1" Id="647394-SubObject_1`Modifier Stack"/>
+    <Assign_Hotkey Shortcut="1" Description="Grow Selection (Skin)" Id="647394-SkinGrowSelection`Skin Modifier"/>
+</MaxHotkeyTransformations>

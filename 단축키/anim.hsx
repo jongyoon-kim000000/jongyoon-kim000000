@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<MaxHotkeyTransformations Locked="false">
+    <Assign_Hotkey Shortcut="CapsLock" Description="Select Root" Id="647394-JJTools2013_Bip_Select_Bip`JJTools 2013"/>
+    <Unassign_Hotkey Shortcut="E" Description="Select and Rotate" Id="0-50002"/>
+    <Assign_Hotkey Shortcut="E" Description="Clever Rotate" Id="647394-JJTools2013_CleverRotate`JJTools 2013"/>
+    <Unassign_Hotkey Shortcut="W" Description="Select and Move" Id="0-50001"/>
+    <Assign_Hotkey Shortcut="W" Description="Clever Move" Id="647394-JJTools2013_CleverMove`JJTools 2013"/>
+    <Assign_Hotkey Shortcut="1" Description="Set Free Key" Id="972555510-40142"/>
+    <Unassign_Hotkey Shortcut="2" Description="Sub-Object Level 2" Id="647394-SubObject_2`Modifier Stack"/>
+    <Assign_Hotkey Shortcut="2" Description="Set Sliding Key" Id="647394-JJTools2013_SetSlidingKey`JJTools 2013"/>
+    <Unassign_Hotkey Shortcut="1" Description="Sub-Object Level 1" Id="647394-SubObject_1`Modifier Stack"/>
+    <Assign_Hotkey Shortcut="1" Description="Set Free Key" Id="647394-JJTools2013_SetFreeKey`JJTools 2013"/>
+    <Assign_Hotkey Shortcut="B" Description="Back View" Id="0-40064"/>
+    <Unassign_Hotkey Shortcut="R" Description="Smart Scale" Id="647394-SmartScale`Tools"/>
+    <Unassign_Hotkey Shortcut="Ctrl+B" Description="Sub-object Selection Toggle" Id="0-40205"/>
+    <Unassign_Hotkey Shortcut="3" Description="Sub-Object Level 3" Id="647394-SubObject_3`Modifier Stack"/>
+    <Assign_Hotkey Shortcut="3" Description="Set Planted Key" Id="647394-JJTools2013_SetPlantedKey`JJTools 2013"/>
+    <Unassign_Hotkey Shortcut="PgUp" Description="Select Ancestor" Id="0-40193"/>
+    <Unassign_Hotkey Shortcut="4" Description="Sub-Object Level 4" Id="647394-SubObject_4`Modifier Stack"/>
+    <Assign_Hotkey Shortcut="4" Description="Select Ancestor" Id="0-40193"/>
+    <Unassign_Hotkey Shortcut="PgDown" Description="Select Child" Id="0-40194"/>
+    <Unassign_Hotkey Shortcut="5" Description="Sub-object Level 5" Id="647394-SubObject_5`Modifier Stack"/>
+    <Assign_Hotkey Shortcut="5" Description="Select Child" Id="0-40194"/>
+    <Assign_Hotkey Shortcut="Shift+E" Description="Export Selected" Id="0-40373"/>
+    <Unassign_Hotkey Shortcut="Shift+W" Description="Toggle SteeringWheels" Id="2103320270-0"/>
+    <Assign_Hotkey Shortcut="Shift+W" Description="Select L Hand" Id="647394-JJTools2013_Bip_Select_L_Hand`JJTools 2013"/>
+    <Unassign_Hotkey Shortcut="Shift+Q" Description="Render" Id="0-50031"/>
+    <Assign_Hotkey Shortcut="Shift+Q" Description="Select R Hand" Id="647394-JJTools2013_Bip_Select_R_Hand`JJTools 2013"/>
+    <Assign_Hotkey Shortcut="Shift+R" Description="Clever Scale" Id="647394-JJTools2013_CleverScale`JJTools 2013"/>
+    <Assign_Hotkey Shortcut="R" Description="Right View" Id="0-40062"/>
+    <Unassign_Hotkey Shortcut="D" Description="Right" Id="1127307088-21"/>
+    <Unassign_Hotkey Shortcut="Right" Description="Right" Id="1127307088-21"/>
+    <Assign_Hotkey Shortcut="R" Description="Right" Id="1127307088-21"/>
+    <Unassign_Hotkey Shortcut="A" Description="Left" Id="1127307088-19"/>
+    <Unassign_Hotkey Shortcut="\" Description="Sound Toggle" Id="0-40204"/>
+    <Assign_Hotkey Shortcut="Shift+\" Description="Hide Helpers Toggle" Id="0-40187"/>
+    <Assign_Hotkey Shortcut="Shift+B" Description="Bone Tools..." Id="647394-BoneAdjustmentTools`Animation Tools"/>
+    <Assign_Hotkey Shortcut="\" Description="BoneToggle" Id="647394-BoneToggle`EMP"/>
+    <Unassign_Hotkey Shortcut="`" Description="Redraw All Views" Id="0-40130"/>
+    <Assign_Hotkey Shortcut="`" Description="Toggle Key Mode" Id="647394-JJTools2013_KeyModeToggle`JJTools 2013"/>
+    <Assign_Hotkey Shortcut="Alt+1" Description="Layer - Set Snap Key" Id="972555510-40173"/>
+    <Assign_Hotkey Shortcut="Alt+Q" Description="Layer - Previous" Id="972555510-40176"/>
+    <Assign_Hotkey Shortcut="Alt+W" Description="Layer - Next" Id="972555510-40175"/>
+</MaxHotkeyTransformations>
