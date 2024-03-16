@@ -36,7 +36,7 @@ rollout lilaa "LiL_Align_Anim" width:225 height:340
 
 
 	button apply "START BUILD" pos:[15,235] width:195 height:40
-	label Refobdjn "by_lil_JongYoon" width:53 height:19 align:#center
+	label Refobdjn "by_lil_JongYoon"   pos:[75,278] width:110 height:19 align:#center
 	button infoButton "Info" pos:[85,300] width:55 height:25
 	
 	-- [A] 버튼 클릭시 이름변경

@@ -1,49 +1,52 @@
--------------------------------------------------------------------------------
+
+	
+	
+	-------------------------------------------------------------------------------
 -- Function : BuildRootMotion
 -------------------------------------------------------------------------------
-
+  
 function BuildRootMotion removeX removeY removeZ bipRootBoneName bipBottomBoneName =
 (
     ----------------------------------------------------------------------------
-    -- biped com 추적 
+    -- get biped root
     ----------------------------------------------------------------------------
   
     local bipedRoot = getNodeByName bipRootBoneName
   
     if bipedRoot == undefined do
     (
-        messagebox ( "Biped 루트 본을 찾을 수 없습니다." )
+        messagebox ( "Biped 루트가 존재하지 않거나 이름이 틀렸습니다" )
         return false
     )
      
     ----------------------------------------------------------------------------
-    -- 바이패드 바텀 추적
+    -- check if root bone exists
     ----------------------------------------------------------------------------
      
     local bipedBottom = getNodeByName bipBottomBoneName
      
     if bipedBottom == undefined do
     (
-        messagebox( "Biped 바텀 본을 찾을 수 없습니다." )
+        messagebox( "Biped 바닥 본의 이름이 틀리므로 무시됩니다" )
     )
      
     ----------------------------------------------------------------------------
-    -- 루트 본이 존재하는지 확인
+    -- check if root bone exists
     ----------------------------------------------------------------------------
   
     local rootBone = getNodeByName "Root"
   
     if rootBone != undefined do
     (
-        messagebox ( "Root 본이 이미 존재합니다." )
+        messagebox ( "Root 본이 이미 존재합니다" )
         return false
     )
   
     ----------------------------------------------------------------------------
-    -- rootBone 생성
+    -- create rootBone
     ----------------------------------------------------------------------------
   
-    local rootBone = Dummy size:10 wirecolor:yellow
+    local rootBone = BoneSys.createBone [ 0, 0, 0 ] [ 20, 0, 0 ] [ 0, 0, 1 ]
   
     rootBone.name = "Root"
   
@@ -52,7 +55,7 @@ function BuildRootMotion removeX removeY removeZ bipRootBoneName bipBottomBoneNa
     select rootBone
   
     ----------------------------------------------------------------------------
-    -- rootBone 위치 컨트롤러 생성
+    -- create rootBone position controller
     ----------------------------------------------------------------------------
   
     rootBone.position.controller = Position_XYZ()
@@ -63,7 +66,7 @@ function BuildRootMotion removeX removeY removeZ bipRootBoneName bipBottomBoneNa
     )
   
     ----------------------------------------------------------------------------
-    -- root에 대한 위치 제약 컨트롤러 생성
+    -- create position constraint controller for root
     ----------------------------------------------------------------------------
   
     local tempRootController = Position_Constraint()
@@ -71,7 +74,7 @@ function BuildRootMotion removeX removeY removeZ bipRootBoneName bipBottomBoneNa
     tempRootController.constraints.appendTarget bipedRoot 1.0
      
     ----------------------------------------------------------------------------
-    -- 바텀에 대한 위치 제약 컨트롤러 생성
+    -- create position constraint controller for bottom
     ----------------------------------------------------------------------------
      
     local tempBottomController = Position_Constraint()
@@ -82,7 +85,7 @@ function BuildRootMotion removeX removeY removeZ bipRootBoneName bipBottomBoneNa
     )
       
     ----------------------------------------------------------------------------
-    -- rootBone 위치 컨트롤러 채우기
+    -- fill rootBone position controller
     ----------------------------------------------------------------------------
   
     animate on
@@ -121,7 +124,7 @@ function BuildRootMotion removeX removeY removeZ bipRootBoneName bipBottomBoneNa
     )
       
     ----------------------------------------------------------------------------
-    -- biped 레이어 생성
+    -- create biped layer
     ----------------------------------------------------------------------------
       
     rootMotionLayerId = biped.numLayers bipedRoot.controller + 1
@@ -169,7 +172,7 @@ function BuildRootMotion removeX removeY removeZ bipRootBoneName bipBottomBoneNa
     )
       
     ----------------------------------------------------------------------------
-    -- rootBone을 루트로 설정
+    -- make rootBone as root
     ----------------------------------------------------------------------------
       
     bipedRoot.parent = rootBone 
@@ -181,15 +184,16 @@ function BuildRootMotion removeX removeY removeZ bipRootBoneName bipBottomBoneNa
 -- UI
 -------------------------------------------------------------------------------
   
-rollout RootMotionUI "Root bone Helper"
+rollout RootMotionUI "루트모션 본 생성"
 (
-    checkbox checkRemoveX "Follow X "
-    checkbox checkRemoveY "Follow Y"
-    checkbox checkRemoveZ "Follow Z" checked:true
+    checkbox checkRemoveX "Remove X" checked:true
+    checkbox checkRemoveY "Remove Y"
+    checkbox checkRemoveZ "Remove Z" checked:true
      
-    edittext bipedRootName "Biped COM: " text:"Bip001"
-
-    button buttonOK "Create" pos:[40,90]width:120 height:30
+    edittext bipedRootName "Biped Root : " text:"Bip01"
+    edittext bipedBottomName "Biped Bottom : " text:"Bip01 L Toe0Nub" readOnly:true
+     
+    button buttonOK "빌드"
       
     on buttonOK pressed do
     (
@@ -201,18 +205,34 @@ rollout RootMotionUI "Root bone Helper"
     (
         bipedBottomName.readOnly = checkRemoveZ.checked
     )
-	    button Del "Remove Root motion" pos:[40,120]width:120 height:30
-on button Del pressed do
-    (
-	actionMan.executeAction 972555510 "40172" 
-    )
+	
+		button Del "Remove Root motion" pos:[40,135]width:120 height:30
+		on Del pressed do
+		(  
+				-------------------------------------------------------------------------------
+				-- get biped root : Biped COM을 가져옴
+				------------------------------------------------------------------------------- 
 
+						if isValidNode $Root do delete $Root
+						-------------------------------------------------------------------------------
+						-- 기존에 RootMotionLayer가 Biped에 있을 경우, 삭제
+						------------------------------------------------------------------------------- 
+						if isValidNode selectedBiped and isKindOf selectedBiped Biped_Object do
+						for i=0 to  biped.numLayers selectedBiped.controller do
+						(
+							bipLayerName = biped.getLayerName selectedBiped.controller i
+							if bipLayerName == "RootMotionLayer" do
+							(
+							biped.deleteLayer selectedBiped.controller i
+							exit
+							)
+						)
+				
+		)
 )
   
-
-
 -------------------------------------------------------------------------------
--- UI 열기
+-- open UI
 -------------------------------------------------------------------------------
   
-CreateDialog RootMotionUI 200 170
+CreateDialog RootMotionUI 200 150

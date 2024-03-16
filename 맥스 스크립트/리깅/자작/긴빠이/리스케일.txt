@@ -1,0 +1,500 @@
+rollout rescaleBatch "RescaleTool v1.1 | SKW" width:361 height:441
+(
+	local maxFiles_arr = #()
+	local filePath
+	local sc_file = #()
+	local savepath
+	local File_SaveAs = #()
+	local layerAnimlist = #()
+	
+	
+	---------------------------------------------------------------
+	--UI
+	---------------------------------------------------------------
+	
+	GroupBox 'GroupMax' "1.Add File" pos:[21,22] width:319 height:100 align:#left
+	button 'GetFile_btn' "+ Files" pos:[30,46] width:60 height:25 align:#left
+	button 'Current_btn' "+ Curr" pos:[95,46] width:60 height:25 align:#left
+	button 'Deletelist_btn' "Reset" pos:[160,46] width:60 height:25 align:#left
+	checkbox 'subcheck' "search child folder" pos:[225,55] width:111 height:13 align:#left
+	
+	label 'save_label' "저장경로 : " pos:[35,82] width:50 height:14 align:#left
+	edittext 'edt1' text:"미지정시 하위폴더 자동생성" pos:[90,80] width:180 height:20 readOnly:true align:#left
+	button 'SaveFile_btn' "..." pos:[280,78] width:40 height:25 align:#left	
+	
+
+	listbox 'list1' "파일 리스트 : " pos:[18,136] width:323 height:11 align:#left
+	label 'maxFilecount' "0" pos:[90,136] width:38 height:14 align:#left
+	label 'manual' "DoubleClick : Delete Selection on the list" pos:[146,135] width:195 height:14 align:#left
+	
+	
+	GroupBox 'GroupScript' "2.Set Rescale" pos:[20,328] width:210 height:62 align:#left
+	progressBar 'pb1' "ProgressBar" pos:[21,408] width:267 height:8 align:#left
+	label 'lb_Progress' "00%" pos:[316,404] width:38 height:14 align:#left
+	label 'scale_label' "리스케일값 :" pos:[32,355] width:60 height:14 align:#left
+	edittext 'edt2'  "" pos:[100,353] width:110 height:17 readOnly:False align:#left
+	button 'Patch_btn' "Apply" pos:[241,333] width:101 height:58 align:#left
+	
+	
+	local myscale
+	
+	
+	---------------------------------------------------------------
+	--FUNCTION
+	---------------------------------------------------------------
+	
+	
+	-------------------------------------------------파일 관련
+
+	fn filecount fcount =
+	(
+		fcount =  maxFiles_arr.count
+		if fcount != 0 then maxFilecount.caption = "" +maxFiles_arr.count as string else maxFilecount.caption = "0"
+	)
+	
+	fn progressvalue attection y u =
+	(
+		u = maxFiles_arr.count as float
+		pb1.value = 100*y/u
+		lb_Progress.text = ((pb1.value as integer) as String) + "%"		
+	)
+		
+	fn getFileRecursive filePath pattern =
+	(
+		dir_array = GetDirectories (filePath+"*")
+		--GetDirectories (tempPath +"*") 폴더내의 모든 폴더를 array로 받아온다.
+		
+		for d in dir_array do
+			join dir_array(GetDirectories (d+"*")) --dir_array의 폴더내 폴더를 dir_array에 합쳐준다.
+				
+		maxFiles_arr = #() --안넣어도 실행은 됨
+		for f in dir_array do
+			join maxFiles_arr (getFiles (f+pattern))
+	)
+	--------------------------------------------------파일 완료
+	----------------------------------------컨스트레인트 키 관련
+	fn checkkeyframe count ctrl = 
+	(
+		key_time =#()
+		if count != 0 do
+		(
+			for i in 1 to count do
+			(
+				frame = getKeytime ctrl i
+				append key_time frame
+			)
+		)
+		return key_time
+	)
+
+	fn setkeyframe source target key_time=
+	(
+		theStart = animationrange.start as integer /TicksPerFrame
+		theEnd = animationrange.end  as integer /TicksPerFrame
+		if classof target == Bone do
+			target.boneEnable=false
+
+		with animate on
+		(
+			for i in 1 to key_time.count do
+				for range in theStart to theEnd do
+					if range == key_time[i] do
+					(
+						at time key_time[i]
+						target.transform = source.transform
+					)
+		)
+	)
+	----------------------------------------컨스트레인트 키 완료
+	-------------------------------------------------나머지관련
+	fn move_helper = 
+	(
+		rp_array = ($'*_RS_RP*') as array
+		for rp in rp_array do
+		(	
+			rp_name = rp.name
+		
+			Tnum = findstring rp_name "_RS_RP"
+			num = Tnum - 1
+			objname = substring rp_name 1 num
+			self = getNodeByName objname
+			self.transform = rp.transform
+			
+			--만약 링크컨스트레인트라면 RP본 키를 가져온다--
+			if classof self.controller == Link_Constraint do
+			(
+				rp_ctrl = rp.pos.controller
+				key_time = checkkeyframe rp_ctrl.keys.count rp_ctrl
+				setkeyframe rp self key_time
+			)
+		)
+		end_array = ($'*_RS_END') as array
+		delete end_array
+		delete rp_array
+	)
+
+	
+fn create_rp_end_bone _self _rp=
+(
+	local self_rp
+
+	-- 자식이 있는 경우
+	if _self.children.count != 0 then
+	(
+		
+		tm_array = #()
+		for self in _self.children do
+		(
+			append tm_array self.transform
+			-- 내가 링크컨스트레인트 본이라면 대체본 생성 및 키 베이크
+			if classof self.controller == Link_Constraint then
+			(
+				self_rp = BoneSys.createBone [0,0,0] [0,0,1] x_axis
+				self_rp.transform = self.transform
+				self_rp.name = self.name + "_RS_RP"
+				self_rp.wirecolor = color 228 153 184
+				
+				--내 대체본 링크설정
+				--내 부모의 대체본이 있다면 내 부모의 대체본에 링크, 없다면 내 부모에 링크
+				if _rp != undefined then(self_rp.parent = _rp)
+				else(self_rp.parent = self.parent)
+				
+				--링크 컨스트레인트에 키가 있다면 키 베이크
+				self_ctrl=self.controller.link_params.pos.controller
+				if numkeys self_ctrl > 0 do
+				(
+					self_rp.name = self_rp.name + "_key"
+					self_rp.wirecolor = color 176 26 26
+					key_time = checkkeyframe self_ctrl.keys.count self_ctrl
+					setkeyframe self self_rp key_time
+				)
+			)else()
+			-- 자식에게 반복적용
+			create_rp_end_bone self self_rp
+		)
+		
+		if classof _self == BoneGeometry do
+		(
+			VL = _self.length
+			end = point size:2 transform:(_self.transform)centermarker:off axistripod:off cross:on box:off wirecolor:green
+			in coordsys local end.pos.x = VL
+			if finditem tm_array end.transform == 0 do
+			(
+				self_end = BoneSys.createBone [0,0,0] [0,0,1] x_axis
+				self_end.transform = end.transform
+				self_end.name = _self.name + "_RS_END"
+				self_end.wirecolor = color 0 0 0
+				self_end.parent = _self
+			)
+			delete end
+		)
+	)
+	
+	-- 자식이 없다면 내가 마지막 끝본
+	else
+	(
+		self = _self
+		
+		--내가 링크컨스트레인트라면
+		if _rp != undefined then
+		(
+			--끝본 생성
+			self_end = BoneSys.createBone [0,0,0] [0,0,1] x_axis
+			self_end.transform = self.transform
+			self_end.name = self.name + "_RS_END"
+			self_end.wirecolor = color 228 153 184
+			
+			--본일때
+			if classof self == BoneGeometry then
+			(
+				VL = self.length
+				in coordsys local self_end.pos.x = VL
+				self_end.parent = self
+			)else
+			(
+				in coordsys local self_end.pos.x = 1
+				self_end.parent = self
+			)
+		)else
+		(
+			--본일때 끝본 설치
+			if classof self == BoneGeometry do
+			(
+				VL = self.length
+				self_end = BoneSys.createBone [0,0,0] [0,0,1] x_axis
+				self_end.transform = self.transform
+				self_end.name = self.name + "_RS_END"
+				self_end.wirecolor = color 228 153 184
+				in coordsys local self_end.pos.x = VL
+				self_end.parent = self	
+			)
+		)
+	)
+	--print "실행완료"
+)
+
+	fn FindHighBone = 
+	(
+		local Arr_high = #()
+		for s in $* do
+		(
+			if s.parent ==undefined then
+			(
+				append Arr_high s	
+			)
+		)
+		select Arr_high
+		
+		for i in Arr_high do
+		(
+			if classof i == point do
+			(
+				i_rp = BoneSys.createBone [0,0,0] [0,0,1] x_axis
+				i_rp.transform = i.transform
+				i_rp.name = i.name + "_RS_RP"
+				
+				create_rp_end_bone i i_rp
+			)
+		)
+	)
+
+	fn fn_SwitchFigureMode onoff = 
+	(
+		clearselection()
+		max motion mode
+		select $bip001
+		biped_ctrl = $.transform.controller
+		
+		--레이어 비활성화
+		layernum = biped.getCurrentLayer biped_ctrl
+		if layernum != 0 do
+		biped.setCurrentLayer biped_ctrl 0
+			
+		biped_ctrl.figureMode = onoff
+		clearselection()
+	)
+	
+	fn rescale_scene num=
+	(
+		-- frame 설정
+		startframe = animationrange.start
+		endframe = animationrange.end
+		animationrange = interval 0 endframe
+		sliderTime = 0
+
+		--biped 첫키 저장
+		biptm = $bip001.transform 
+		biped_ctrl = $bip001.transform.controller
+
+		posarr = #()
+		layernum = biped.getCurrentLayer biped_ctrl
+		
+		for i = 1 to (layernum+1) do
+		(
+			biped.setCurrentLayer biped_ctrl (i-1)
+			layerpos = biptm.row4
+			append posarr layerpos
+		)
+		
+
+		--피규어모드
+		fn_SwitchFigureMode on
+
+		--상위본 찾아 끝본 생성/포인트 대체용 본 생성
+		FindHighBone()
+
+		--리스케일
+		rescaleWorldUnits num
+
+		--제위치로
+		move_helper()
+
+		--애니모드
+		fn_SwitchFigureMode off
+	
+		--frame 재설정
+		animationrange = interval startframe endframe
+		
+		
+
+		--biped 키조정 (필수)
+		for i = 1 to (layernum+1) do
+		(
+			if i == 2 do
+			(
+				append layerAnimlist maxFileName
+				return()
+			)
+			
+			layername = "layer" + (i as string)
+			biped.CreateLayer biped_ctrl i layername
+			with animate on
+			(
+				newrow4 = [0,0,0]
+				if i == 1 then
+				(
+					newx = (posarr[i].x) * num
+					newy = (posarr[i].y) * num
+					newz = $bip001.transform.row4.z
+					newrow4 =[newx, newy, newz]
+					
+				)else
+				(
+					newrow4 = posarr[i] * numf
+				)	
+				newtm = (matrix3  biptm.row1 biptm.row2 biptm.row3 newrow4)
+				$bip001.transform = newtm
+			)
+			biped.collapseAtLayer biped_ctrl (i-1)
+		)
+		
+		
+	)
+	
+	fn reset_all = 
+	(
+		layerAnimlist = #()
+		maxFiles_arr = #() --maxFiles_arr를 비어있는 배열로 재정의
+		list1.items = sort maxFiles_arr --maxFiles_arr를 list item으로 재배열
+		
+		--기존 패스들 전체 삭제
+		savepath = undefined
+		filepath = undefined
+		edt1.text = "미지정시 하위폴더 자동생성"
+		
+		lb_Progress.text = "00%"
+		filecount fcount
+		
+	)
+	
+	fn createWrite_txt filepath txtarray =
+	(
+
+		txtfile = createFile filepath
+		for i in txtarray do
+		(format "%\n"  (i as string) to:txtfile)
+		close txtfile
+
+	)
+	
+	---------------------------------------------------------------
+	--EVENT
+	---------------------------------------------------------------
+	
+	on Current_btn pressed do
+	(	
+		reset_all()
+		
+		maxFiles_arr = #()
+		local CurrentFile = ( maxFilePath + maxFileName)
+		append maxFiles_arr CurrentFile
+		list1.items = sort maxFiles_arr
+	)
+		
+	on GetFile_btn pressed do
+	(
+		reset_all()
+		
+		filepath = getSavePath()
+		if subcheck.checked == true then
+		(
+			if filepath != undefined then
+			(
+				pattern = "*.max"
+				getFileRecursive filePath pattern
+				list1.items = sort maxFiles_arr
+				filecount fcount
+			)
+		)
+		
+		else
+		(
+			if filepath != undefined then
+			(
+				maxFiles = getFiles (filepath+"\*.max")
+				--getFiless (tempPath +"*.*" 위에 설정한 폴더내의 모든 파일을 array로 받아온다. *(=와일드카드)는 조건없이 모두 해당
+				
+				maxFiles_arr = #()
+				for i in maxFiles do
+				(
+					print i
+					append maxFiles_arr i --i를 맥스파일배열에 집어넣는다.
+				)
+				list1.items = sort maxFiles_arr
+				print maxFiles_arr.count
+			)
+			filecount fcount
+		)
+	)
+	
+	
+	on Deletelist_btn pressed do
+	(
+		reset_all()
+	)
+	
+	on SaveFile_btn pressed do
+	(
+		savepath = getSavePath()
+		if savepath != undefined do
+		edt1.text = savepath
+	)
+	
+	on list1 doubleClicked sel do
+	(
+		deleteitem maxFiles_arr list1.selection  
+		list1.items = maxFiles_arr
+		filecount fcount
+	)
+	
+	on Patch_btn pressed do
+	(
+		num = edt2.text
+		float_num = (num as float)
+		
+		if num != "" then
+		(
+			if (float_num) != undefined then
+			(
+				y = 1
+				for o in maxFiles_arr do
+				(
+					loadMaxFile o useFileUnits:true quiet:true
+					
+					--리스케일 실행
+					rescale_scene float_num
+					
+					if savepath == undefined  do
+					(
+						if  (filePath!= undefined) then(savepath = filePath +"\\" + "rescale_file")
+						else(savepath  = maxFilePath + "rescale_file")
+
+						checkfolder = doesFileExist savepath
+						if checkfolder == False do (makeDir savepath)
+						
+						--saveMaxFile o
+					)
+
+					File_name = getFileNameFile o
+					File_SaveAs = savepath+"\\" +File_name +".max" 
+					saveMaxFile File_SaveAs
+					
+					y = y+1
+					progressvalue attection y u 
+				)
+				pb1.value = 0
+				
+				--레이어리스트 생성
+				if layerAnimlist.count > 0 do
+				(
+					filename = "BipedLayerAnim_list.txt"
+					filepath =savepath +"\\" + filename 
+					createWrite_txt filepath layerAnimlist
+				)
+			
+				messagebox "패치완료"
+			)else(messagebox "숫자를 입력하세요")
+		)else(messagebox "리스케일할 수치를 입력하세요")
+
+	)
+)
