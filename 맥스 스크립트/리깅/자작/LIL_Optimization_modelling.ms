@@ -5,6 +5,7 @@
 
 
 
+global rot = eulerToQuat(eulerAngles 90 0 0)
 -- 함수 정의: 정보 버튼을 눌렀을 때 실행되는 함수
 fn openInfoWebsite =
 (
@@ -36,7 +37,6 @@ fn movePivotToOrigin obj =
     )
 
 
-global rot = eulerToQuat(eulerAngles 90 0 0)
 -- UI 정의
 try (destroyDialog ::L) catch ()
 rollout L "LIL_Modell_Edit" width:162 height:300
@@ -45,6 +45,7 @@ rollout L "LIL_Modell_Edit" width:162 height:300
 		button btn1 "Y_UP" pos:[18,23] width:127 height:34
 		on btn1 pressed do
 		(
+		rot = eulerToQuat(eulerAngles 90 0 0)
         selectedObjects = getCurrentSelection()
         if selectedObjects.count > 0 then 
 		(
@@ -68,7 +69,7 @@ rollout L "LIL_Modell_Edit" width:162 height:300
 		)
 	
 		
-		button btn22 "Move Pivot to Zero" pos:[18,103] width:127 height:34
+		button btn22 "Reset Pivot to Zero" pos:[18,103] width:127 height:34
 		on btn22 pressed do 
 		(
 		  selectedObjects = getCurrentSelection()
@@ -92,6 +93,7 @@ rollout L "LIL_Modell_Edit" width:162 height:300
 		(
         -- 선택된 객체에 대해 Reset XForm 실행
         for obj in selectedObjects do resetXForm obj
+			macros.run "Modifier Stack" "Convert_to_Poly"
 
         -- Reset XForm이 완료된 후 메시지 표시
         messagebox "Reset XForm Completed" title: "LIL_Modell_Edit"
@@ -103,36 +105,46 @@ rollout L "LIL_Modell_Edit" width:162 height:300
 		button btn4 "Skin" pos:[18,183] width:63 height:30
 		on btn4 pressed do 
 		(
-		-- 현재 선택된 모든 객체를 얻습니다.
-		selectedObjects = selection
+		allNode = selection as array
+			print allNode
 
-		-- 각 객체에 대해 루프를 돌면서 Skin Modifier를 추가합니다.
-		for obj in selectedObjects do
-		(
-		modPanel.addModToSelection (skin ()) ui:on
-		)
+			if allNode.count > 0 then
+			(
+
+				for i = 1 to allNode.count do
+				(
+					addModifier allNode[i] (skin ()) ui:on
+				)
+			)
+		
 
 		)
      
 		button btn5 "Skin Wrap" pos:[82,183] width:63 height:30
 		on btn5 pressed do 
 		(
-		-- 현재 선택된 모든 객체를 얻습니다.
-		selectedObjects = selection
+			allNode = selection as array
+			print allNode
 
-		-- 각 객체에 대해 루프를 돌면서 Skin Modifier를 추가합니다.
-		for obj in selectedObjects do
-		(
-		modPanel.addModToSelection (Skin_Wrap()) ui:on
+			if allNode.count > 0 then
+			(
+
+				for i = 1 to allNode.count do
+				(
+					addModifier allNode[i] (Skin_Wrap()) ui:on
+				)
+			)
+			
 		)
 
-		)
-
-		button infoButton "Info" pos:[50,240]  width:60 height:25  align:#center
+		button infoButton "Info" pos:[50,255]  width:60 height:25  align:#center
 		  on infoButton pressed do
   		(
        		 openInfoWebsite() 
 		)
+		
+		label lil "made by lil JongYoon" pos:[30,230] width:148 height:20
+		
 )
 
 createDialog L

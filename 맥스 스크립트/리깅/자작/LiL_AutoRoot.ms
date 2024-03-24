@@ -65,15 +65,15 @@ FolY = root
 locaX = root
 locaY = root
 
+--루트본의 포지션 컨트롤러 
 Root.pos.controller = Position_XYZ ()
-
 Root.pos.controller = position_script ()
 			Root.pos.controller.AddNode "FX" FolX
             Root.pos.controller.AddNode "FY" FolY
 			Root.pos.controller.AddNode "lX"locaX
             Root.pos.controller.AddNode "lY"locaY
 			Root.pos.controller.SetExpression "[ FX*lX, FY*lY, 0 ] "
-			*/
+*/
 
 )
 
